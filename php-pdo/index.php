@@ -58,15 +58,24 @@ $resultat->closeCursor();
  
  <!--ici commence formulaire-->
 <form action="" method="post">
-<label for="country">entrer ville</label> 
+<label for="NewCountry">entrer ville</label> 
 <input type="texte" name="NewCountry" id="NewCountry">
 <input type="submit" name="submit" value="ok">
 </form>
 
-<?php
 
-$db->exec('INSERT INTO météo (ville) VALUES(\'battle\')');
-echo 'tagrand mere';
+<?php 
+try {
+    $db = new PDO("mysql:host=localhost;dbname=weatherapp;charset=utf8",'root','');
+    
+} catch (PDOException $e) {
+    print "Erreur !: " . $e->getMessage() . "<br/>";
+    die();
+}
+
+$req = $db->prepare('INSERT INTO météo (ville) VALUES(?)');
+$req->execute(array(($_POST['NewCountry'])));
+
 
 ?>
 
