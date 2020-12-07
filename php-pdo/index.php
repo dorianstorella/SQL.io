@@ -23,7 +23,7 @@ $resultat = $db->query('SELECT * FROM météo');
 $donnees = $resultat->fetch();
 while ($donnees = $resultat->fetch())
 {
-    echo $donnees['ville'] . " " . $donnees["haut"]." ". $donnees["bas"] ."<br>";
+    echo $donnees['ville'] . " " . $donnees["haut"] . " " . $donnees["bas"] . "<br>";
 }
 $resultat->closeCursor();
 ?>
@@ -40,7 +40,7 @@ $resultat->closeCursor();
     <th>bas</th>
     </tr>
     
-    <!--   ici arrive sql -->   
+    <!--   ici arrive sql pour aficher tableau-->   
 <?PHP
 $resultat = $db->query('SELECT * FROM météo');
 $donnees = $resultat->fetch();
@@ -50,43 +50,25 @@ $donnees = $resultat->fetch();
     }
 $resultat->closeCursor();
 ?>    
-    <!-- reprodruire
-    <td>hey</td>
-    <td>hey</td>
-    <td>hey</td>
-    </tr>
-    <tr>
-    <td>hey</td>
-    <td>hey</td>
-    <td>hey</td>
-    </tr>
-    <tr>
-    <td>hey</td>
-    <td>hey</td>
-    <td>hey</td>
-    </tr>-->
+ 
 </table>
 <br>
 
- <!--ici commence formulaire
- <?php  if (isset($_POST['NewCountry']))  echo "bonjour " . ($_POST["NewCountry"]) ?>   -->
-<?php
-if (isset($_POST['submit'])) {
-$country = $_POST['NewCountry'];
-$sql ="INSERT INTO météo (ville) VALUES('$country')";
-$nb =$db-> exec($sql);
-}
-
-
-?>
-
+ 
+ 
+ <!--ici commence formulaire-->
 <form action="" method="post">
 <label for="country">entrer ville</label> 
 <input type="texte" name="NewCountry" id="NewCountry">
 <input type="submit" name="submit" value="ok">
 </form>
 
+<?php
 
+$db->exec('INSERT INTO météo (ville) VALUES(\'battle\')');
+echo 'tagrand mere';
+
+?>
 
 
 
