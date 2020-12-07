@@ -16,6 +16,9 @@ try {
     print "Erreur !: " . $e->getMessage() . "<br/>";
     die();
 }
+
+
+
 $resultat = $db->query('SELECT * FROM météo');
 $donnees = $resultat->fetch();
 while ($donnees = $resultat->fetch())
@@ -30,24 +33,24 @@ $resultat->closeCursor();
 
 ?>
 
-<table>
+<table>    
     <tr>
     <th>ville</th>
     <th>haut</th>
     <th>bas</th>
     </tr>
-    <tr>
+    
     <!--   ici arrive sql -->   
 <?PHP
-    $resultat = $db->query('SELECT * FROM météo');
+$resultat = $db->query('SELECT * FROM météo');
 $donnees = $resultat->fetch();
-while ($donnees = $resultat->fetch())
-{
-    echo "<tr>" . "<td>" . $donnees['ville'] . "</td>" . " " . "<td>" . $donnees["haut"] . "</td>" . " " . "<td> ". $donnees["bas"] ."</td>". "</tr>";
-}
+    while ($donnees = $resultat->fetch())
+    {
+        echo "<tr>" . "<td>" . $donnees['ville'] . "</td>" .  "<td>" . $donnees["haut"] . "</td>" .  "<td> ". $donnees["bas"] ."</td>" . "</tr>";
+    }
 $resultat->closeCursor();
 ?>    
-    <!--
+    <!-- reprodruire
     <td>hey</td>
     <td>hey</td>
     <td>hey</td>
@@ -63,6 +66,28 @@ $resultat->closeCursor();
     <td>hey</td>
     </tr>-->
 </table>
+<br>
+
+ <!--ici commence formulaire
+ <?php  if (isset($_POST['NewCountry']))  echo "bonjour " . ($_POST["NewCountry"]) ?>   -->
+<?php
+if (isset($_POST['submit'])) {
+$country = $_POST['NewCountry'];
+$sql ="INSERT INTO météo (ville) VALUES('$country')";
+$nb =$db-> exec($sql);
+}
+
+
+?>
+
+<form action="" method="post">
+<label for="country">entrer ville</label> 
+<input type="texte" name="NewCountry" id="NewCountry">
+<input type="submit" name="submit" value="ok">
+</form>
+
+
+
 
 
 </body>
