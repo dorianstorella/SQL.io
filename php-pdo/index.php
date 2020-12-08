@@ -33,15 +33,35 @@ $resultat->closeCursor();
 
 ?>
 
+
+
+ 
+ 
+ <!--ici commence formulaire-->
+<form action="" method="post">
+<label for="NewCountry">entrer ville</label> 
+<input type="texte" name="NewCountry" id="NewCountry">
+<input type="submit" name="submit" value="ok">
+</form>
 <table>    
     <tr>
     <th>ville</th>
     <th>haut</th>
     <th>bas</th>
     </tr>
-    
-    <!--   ici arrive sql pour aficher tableau-->   
+
 <?PHP
+if (isset($_POST['NewCountry'])){
+$req = $db->prepare('INSERT INTO météo (ville) VALUES (:ville)');
+$req->execute (array(
+    'ville' =>$_POST['NewCountry']
+));
+} 
+
+
+    
+  // <!--   ici arrive sql pour aficher tableau-->   
+
 $resultat = $db->query('SELECT * FROM météo');
 $donnees = $resultat->fetch();
     while ($donnees = $resultat->fetch())
@@ -53,32 +73,6 @@ $resultat->closeCursor();
  
 </table>
 <br>
-
- 
- 
- <!--ici commence formulaire-->
-<form action="" method="post">
-<label for="NewCountry">entrer ville</label> 
-<input type="texte" name="NewCountry" id="NewCountry">
-<input type="submit" name="submit" value="ok">
-</form>
-
-
-<?php 
-try {
-    $db = new PDO("mysql:host=localhost;dbname=weatherapp;charset=utf8",'root','');
-    
-} catch (PDOException $e) {
-    print "Erreur !: " . $e->getMessage() . "<br/>";
-    die();
-}
-
-$req = $db->prepare('INSERT INTO météo (ville) VALUES(?)');
-$req->execute(array(($_POST['NewCountry'])));
-
-
-?>
-
 
 
 </body>
