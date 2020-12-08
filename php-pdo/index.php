@@ -41,6 +41,13 @@ $resultat->closeCursor();
 <form action="" method="post">
 <label for="NewCountry">entrer ville</label> 
 <input type="texte" name="NewCountry" id="NewCountry">
+
+<label for="bas">entrer basse tempe</label> 
+<input type="texte" name="bas">
+
+<label for="haut">entrer haute tempe</label> 
+<input type="texte" name="haut">
+
 <input type="submit" name="submit" value="ok">
 </form>
 <table>    
@@ -51,10 +58,12 @@ $resultat->closeCursor();
     </tr>
 
 <?PHP
-if (isset($_POST['NewCountry'])){
-$req = $db->prepare('INSERT INTO météo (ville) VALUES (:ville)');
+if (isset($_POST['submit'])){
+$req = $db->prepare('INSERT INTO météo (ville , bas , haut) VALUES (:ville, :bas, :haut)');
 $req->execute (array(
-    'ville' =>$_POST['NewCountry']
+    'ville' =>$_POST['NewCountry'],
+    'bas' =>$_POST['bas'],
+    'haut'=>$_POST['haut']
 ));
 } 
 
